@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/auth").authenticated()       // 需携带有效 token
+                .antMatchers("/currentUserName").authenticated()       // 需携带有效 token
                 .antMatchers("/admin").hasAuthority("admin")   // 需拥有 admin 这个权限
                 .antMatchers("/ADMIN").hasRole("ADMIN")     // 需拥有 ADMIN 这个身份
                 .anyRequest().permitAll()       // 允许所有请求通过

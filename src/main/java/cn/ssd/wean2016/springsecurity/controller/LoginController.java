@@ -9,6 +9,7 @@ import cn.ssd.wean2016.springsecurity.service.LoginService;
 import cn.ssd.wean2016.springsecurity.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,11 @@ public class LoginController {
         }
 
         return new ResultMap().success().message("").data(new Data().addObj(tokenHeader, loginService.generateToken((TokenDetail) loginDetail)));
+    }
+    @RequestMapping(value = "/currentUserName",method = RequestMethod.GET)
+    public Object test(){
+        // 检查有没有输入用户名密码和格式对不对
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     private ResultMap checkAccount(RequestLoginUser requestLoginUser, LoginDetail loginDetail){
